@@ -1,0 +1,48 @@
+---
+title: "Chicago_Plotted to JPG"
+author: "Esther"
+date: "05/09/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r}
+Chicago_plot4<-ggplot()+
+  annotation_map_tile(zoomin = 0, progress = "none", type = "stamenbw")  +
+  geom_sf() +
+  labs(caption = "Enterprise Zones and Rail Stations in Chicago")+
+  geom_sf(data=EnterpriseZ,color=NA,alpha=0.5,
+          aes(fill="EnterpriseZone"))+
+  geom_sf(data=RailStations,shape=15,size=0.4,
+          aes(color="RailStations"))+
+  scale_fill_manual(values = "antiquewhite",name="")+
+  scale_color_manual(values=c("chocolate4"),name="")+
+  theme_void()+
+  jpeg("Chicago.jpg", width = 5, height = 3, units = "in", res = 300)
+Chicago_plot4
+dev.off()
+```
+
