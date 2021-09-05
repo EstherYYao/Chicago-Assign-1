@@ -1,0 +1,38 @@
+---
+title: "Chicago"
+author: "Esther"
+date: "05/09/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r,message=FALSE}
+library(sf)
+library(tidyverse)
+library(ggspatial)
+library(ggthemes)
+```
+
+```{r,message=FALSE}
+EnterpriseZ<-st_read("Boundaries - Enterprise Zones.kml")
+RailStations<-st_read("CTA_RailStations.kml")
+```
+
+
+```{r}
+ggplot()+
+  annotation_map_tile(zoomin = 0, progress = "none", type = "stamenbw")  +
+  geom_sf() +
+  labs(caption = "Enterprise Zones and Rail Stations in Chicago")+
+  geom_sf(data=EnterpriseZ,color=NA,alpha=0.5,
+          aes(fill="EnterpriseZone"))+
+  geom_sf(data=RailStations,shape=15,size=0.4,
+          aes(color="RailStations"))+
+  scale_fill_manual(values = "antiquewhite",name="")+
+  scale_color_manual(values=c("chocolate4"),name="")+
+  theme_void()
+```
+
