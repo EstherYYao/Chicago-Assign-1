@@ -1,5 +1,5 @@
 ---
-title: "Chicago_0906"
+title: "Group 3 - Assignment 1"
 output: html_document
 ---
 
@@ -7,283 +7,184 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Evaluating the Relationship between Enterprise Zones and Public Transit in Chicago 
+## Data, Objective, and Contribution
 
-  
+These maps utilize open-source data from the City of Chicago. For our points data, we chose a KML file of the stops along the CTA L train, the major public transit system in the city. For polygons, we looked at boundaries of the Illinois Enterprise Zone Program in Chicago. This program earmarks certain economically depressed areas across the state for targeted revitalization through a combination of state and local tax incentives. 
 
-"Include text explaining the purpose of the maps and which ones work best for that purpose." 
+Our goal was to identify any correlations in the spatial relationship between public transit and economic development through this program. Each team member created an individual map using a base map, Enterprise Zones data, and CTA L Stops. Afterwards, all team members created one collaborative map that was designated the “bad” map, using red polygons, a black base map, and pink points. Due to technical difficulties, the code for each member was added to Yirong’s and Emma’s RStudio to create the final html file. 
 
-  
+As a group we completed: working through videos, finding data, troubleshooting GitHub as a team, coming up with our “bad map”, came together multiple times to continue work. Team members determined that the level of contribution from everyone was relatively equal, barring technical difficulties. Grading is as follows:  
 
-  
+Emma: 10 – Found data sets for CTA-L-Stops, 1 individual map, helped with collaborative “bad” map, uploads to Github, statement for individual map, introduction for “Contribution Statement” 
 
-  
+Gabriel: 10 – Found data sets for Enterprise Zones, 1 individual map, helped with collaborative “bad” map, statement for individual map, statement for “bad” map, set up shared documents to edit texts 
 
-  
+Jaida: 10 - 1 individual map, helped with collaborative “bad” map, statement for individual map, grading breakdown for “Contribution Statement”, description of tasks in “Contribution Statement” 
+
+Yirong: 10 - 1 individual map, helped with collaborative “bad” map, uploads to Github, statement for individual map, created HTML file for group 
+
+
 
   
 
 ## Loading packages 
 
-  
 
 ```{r load packages, message = FALSE} 
 
 library(sf) 
-
 library(tidyverse) 
-
 library(ggthemes) 
-
 library(ggspatial) 
-
 library(dplyr) 
-
 library(ggplot2) 
 
 ``` 
+
+
 
   
 
 ## Loading Data 
 
-  
 
-```{r downloading data} 
-
+```{r downloading data, message=FALSE} 
   
 
 Ezones <- st_read("https://data.cityofchicago.org/api/geospatial/64xf-pyvh?method=export&format=KML")  
-
-  
 
 Lstops <- st_read("https://data.cityofchicago.org/download/4qtv-9w43/application%2Fxml") 
 
 ``` 
 
-## Map 1 
 
-  
 
-This map used a bright color to highlight the polygons on a neutral base map, "diamond” shapes as points that did not display clearly in the map, and the purpose was to highlight the accessibility of transit sites around Enterprise Zones in Chicago.  
 
-  
+## Map 1 - "Bad Map"
 
-```{r} 
 
-ggplot() +  
+It is important for data visualizations/maps to provide data in a clear and concise manner. While the colors utilized in this map provide great contrast, it is challenging to understand what is being shown. The spacing and size of the CTA-L-Stops, color and opacity of the Enterprise Zones, and very dark color of the base map result in a visualization that is unclear. This map is “bad.” 
 
-  annotation_map_tile(zoomin = 0, progress = "none", type = "cartolight")  +  
 
-  
-
-  labs(caption = "Map tiles and data by OpenStreetMap") +  
-
-  
-
-  geom_sf(data = Ezones, color = "NA", aes(fill = "Enterprise Zones")) +   
-
-  
-
-  geom_sf(data = Lstops, shape = 18, size = 1, aes(color = "CTA - L stops")) +  
-
-  
-
-  scale_fill_manual(values = "turquoise", name = "") +  
-
-  
-
-  scale_color_manual(values = "brown", name = "")   + 
-
-  theme_void() 
-
- 
-``` 
-
- 
-## Map 2
-
-This map represents the Enterprise Zones and CTA-L-Stops in the City of Chicago and provides appropriate geographic context through its use of color, size, and space. 
 
 ```{r}
-ggplot() +  
 
-  
+ggplot() + 
+  annotation_map_tile(zoomin = 0, progress = "none", type = "cartodark")  + 
+  geom_sf() + 
+  labs(caption = "Map 1(Bad Map) - EZones and LStops in Chicago")+ 
+  geom_sf(data = Ezones, color = "brown", 
+                        aes(fill = "Enterprise Zones")) + 
+  geom_sf(data = Lstops, 
+          size = 4, 
+          shape = 8, 
+          aes(color = "CTA - L stops")) + 
+  scale_fill_manual(values = "brown", name = "") + 
+  scale_color_manual(values = "maroon", name = "") + 
+  theme_void() 
 
-  annotation_map_tile(zoomin = 0, progress = "none", type = "stamenbw") +  
-
-  
-
-  geom_sf() +  
-
-  
-
-  labs(caption = "Map tiles and data by OpenStreetMap") +  
-
-  
-
-  geom_sf(data = Ezones, color = NA, alpha = 0.5,  
-
-  
-
-          aes(fill = "Enterprise Zones")) +  
-
-  
-
-  geom_sf(data = Lstops, size = 0.4, 
-  
-
-          aes(color = "CTA - L stops")) +  
-
-  
-
-  scale_fill_manual(values = "purple", name = "") +  
-
-  
-
-  scale_color_manual(values = "darkgreen", name = "") +  
-
-  
-
-  theme_void()  
 ```
 
 
 
-## Map 3 
 
-  
+## Map 2 
 
-This map attempts to show the relationship between Enterprise Zones and Chicago’s urban layout (including road network, water system, and parks, etc.), and the close relationship between the Enterprise Zones and the L Stops’ development. The black and white base map simplifies the background information to make the two sets of data show up, and the opacity of the enterprise zones shows the information of the map below.   
 
-  
+This Map used a black-white base map that includes details of the city’s administrative boundaries, and lightly fill color with transparency to show its relationship with the Enterprise Zones. Then a more contrasted color is used to represent the L Stops. The resulting map fails to show the relationship between the Enterprise Zone and the L Stops as the polygon element is not so clearly standing out from the rest of the map. The fill color needs to be adjusted to a stronger type and with a darker outline.  
 
-```{r} 
+
+
+
+```{r}
 
 ggplot()+  
-
-  
-
   annotation_map_tile(zoomin = 0, progress = "none", type = "stamenbw")  +  
-
-  
-
   geom_sf() +  
-
-  
-
-  labs(caption = "Map tiles and data by OpenStreetMap")+  
-
-  
-
+  labs(caption = "Map 2 - EZones and LStops in Chicago")+  
   geom_sf(data=Ezones, color=NA, alpha=0.8,  
-
-  
-
           aes(fill="Enterprise Zones"))+  
-
-  
-
   geom_sf(data=Lstops, shape=15, size=0.4,  
-
-  
-
           aes(color="CTA - L stops"))+  
-
-  
-
   scale_fill_manual(values = "antiquewhite",name="")+  
-
-  
-
   scale_color_manual(values=c("chocolate4"),name="")+  
-
-  
-
   theme_void()  
 
-``` 
+```
+
+
+
+
+## Map 3
+
+
+While this map utilizes a contrasting color scheme do differentiate between the data shown, the choice of color of the base map pulls focus away from the Enterprise Zones and CTA-L-Stops. Choosing a lighter base map, outlining the Enterprise Zones and lowering the opacity, and shifting the color for both the Enterprise Zones and CTA-L-Stops, would make this map more effective. 
+
+
+
+```{r}
+
+ggplot() +  
+  annotation_map_tile(zoomin = 0, progress = "none", type = "stamenbw") +  
+  geom_sf() +  
+  labs(caption = "Map 3 - EZones and LStops in Chicago") +  
+  geom_sf(data = Ezones, color = NA, alpha = 0.5,  
+          aes(fill = "Enterprise Zones")) +  
+  geom_sf(data = Lstops, size = 0.4, 
+          aes(color = "CTA - L stops")) +  
+  scale_fill_manual(values = "purple", name = "") +  
+  scale_color_manual(values = "darkgreen", name = "") +  
+  theme_void()  
+
+```
+
+
+
 
 ## Map 4 
 
-  
 
-This map highlights the relationship between the Enterprise Zones and L stops primarily through color. Opacity is lowered for the Enterprise Zones, with the boundaries of the zones preserved through a darker outline, in order to make the blue points of the L stops stand out in contrast.   
+This map used a neutral Chicago base map to emphasize the distinct Enterprise Zones and CTA L Stop points. Even though the points were designated as “diamond” shapes, many appear to have circular shapes, depending on the scale. Thus, it would have been better to maintain a circular shape, rather than have various shapes displayed on the map. Increasing the size would congest the map and make analysis more difficult. However, given the color and scale, the map appears to emphasize Enterprise Zones. Overall, not a bad map, but I need to further understand intentionality of my maps first!😊    
 
-```{r} 
 
-ggplot() + 
-
-  annotation_map_tile(zoomin = 0, progress = "none", type = "cartolight")  + 
-
-  geom_sf() + 
-
-  labs(caption = "Map tiles and data by OpenStreetMap")+ 
-
-  geom_sf(data = Ezones, color = "lightcoral",alpha = 0.2, 
-
-                        aes(fill = "Enterprise Zones")) + 
-
-  geom_sf(data = Lstops, 
-
-          size = 0.5, 
-
-          aes(color = "CTA - L stops")) + 
-
-  scale_fill_manual(values = "red", name = "") + 
-
-  scale_color_manual(values = "blue", name = "") + 
-
-  theme_void() 
-```
- 
-
-## Map #5 
-
-  
-
-  
 
 ```{r} 
 
-ggplot() + 
-
-  annotation_map_tile(zoomin = 0, progress = "none", type = "cartodark")  + 
-
-  geom_sf() + 
-
-  labs(caption = "Map tiles and data by OpenStreetMap")+ 
-
-  geom_sf(data = Ezones, color = "brown", 
-
-                        aes(fill = "Enterprise Zones")) + 
-
-  geom_sf(data = Lstops, 
-
-          size = 4, 
-
-          shape = 8, 
-
-          aes(color = "CTA - L stops")) + 
-
-  scale_fill_manual(values = "brown", name = "") + 
-
-  scale_color_manual(values = "maroon", name = "") + 
-
+ggplot() +  
+  annotation_map_tile(zoomin = 0, progress = "none", type = "cartolight")  +  
+  labs(caption = "Map 4 - EZones and LStops in Chicago") +  
+  geom_sf(data = Ezones, color = "NA", aes(fill = "Enterprise Zones")) + 
+  geom_sf(data = Lstops, shape = 18, size = 1, aes(color = "CTA - L stops")) + 
+  scale_fill_manual(values = "turquoise", name = "") +  
+  scale_color_manual(values = "brown", name = "")   + 
   theme_void() 
-
- 
 
 ``` 
 
-## Contributions 
 
-  
 
-Emma 
 
-Gabriel 
+## Map 5 - Best Map
 
-Jaida 
 
-Yirong 
+This map highlights the relationship between the Enterprise Zones and L stops primarily through color and contrast. A lighter basemap helps the spatial data stand out, as the purpose of this map is less about the roads, parcels and other geography present in the basemap and more about the correlation between the Enterprise Zones and L stops. Opacity is lowered for the Enterprise Zones in order to highlight the L-stops on the top layer, while the boundaries of the zones are still preserved through a darker outline.   
+
+
+
+```{r} 
+
+ggplot() + 
+  annotation_map_tile(zoomin = 0, progress = "none", type = "cartolight")  + 
+  geom_sf() + 
+  labs(caption = "Map 5 (Best Map) - EZones and LStops in Chicago")+ 
+  geom_sf(data = Ezones, color = "lightcoral",alpha = 0.2, 
+                        aes(fill = "Enterprise Zones")) + 
+  geom_sf(data = Lstops, 
+          size = 0.5, 
+          aes(color = "CTA - L stops")) + 
+  scale_fill_manual(values = "red", name = "") + 
+  scale_color_manual(values = "blue", name = "") + 
+  theme_void() 
+
+```
+ 
