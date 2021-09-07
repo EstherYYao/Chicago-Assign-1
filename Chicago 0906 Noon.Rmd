@@ -130,8 +130,7 @@ ggplot() +
 
   
 
-  geom_sf(data = Lstops, size = 0.05,   
-
+  geom_sf(data = Lstops, size = 0.4, 
   
 
           aes(color = "CTA - L stops")) +  
