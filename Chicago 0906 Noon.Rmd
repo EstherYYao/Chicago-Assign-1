@@ -72,7 +72,7 @@ It is important for data visualizations/maps to provide data in a clear and conc
 ggplot() + 
   annotation_map_tile(zoomin = 0, progress = "none", type = "cartodark")  + 
   geom_sf() + 
-  labs(caption = "Map 1(Bad Map) - EZones and LStops in Chicago")+ 
+  labs(caption = "Map tile and data by OpenStreetMaps")+ 
   geom_sf(data = Ezones, color = "brown", 
                         aes(fill = "Enterprise Zones")) + 
   geom_sf(data = Lstops, 
@@ -91,7 +91,7 @@ ggplot() +
 ## Map 2 
 
 
-This Map used a black-white base map that includes details of the city’s administrative boundaries, and lightly fill color with transparency to show its relationship with the Enterprise Zones. Then a more contrasted color is used to represent the L Stops. The resulting map fails to show the relationship between the Enterprise Zone and the L Stops as the polygon element is not so clearly standing out from the rest of the map. The fill color needs to be adjusted to a stronger type and with a darker outline.  
+This Map used a black-white base map that includes details of the city’s administrative boundaries and light fill color with transparency to show its relationship with the Enterprise Zones. Then a more contrasted color is used to represent the L Stops. The resulting map fails to show the relationship between the Enterprise Zone and the L Stops, as the polygon element is not so clearly standing out from the rest of the map. The fill color needs to be adjusted to a stronger type and with a darker outline. 
 
 
 
@@ -101,7 +101,7 @@ This Map used a black-white base map that includes details of the city’s admin
 ggplot()+  
   annotation_map_tile(zoomin = 0, progress = "none", type = "stamenbw")  +  
   geom_sf() +  
-  labs(caption = "Map 2 - EZones and LStops in Chicago")+  
+  labs(caption = "Map tile and data by OpenStreetMaps")+  
   geom_sf(data=Ezones, color=NA, alpha=0.8,  
           aes(fill="Enterprise Zones"))+  
   geom_sf(data=Lstops, shape=15, size=0.4,  
@@ -118,7 +118,7 @@ ggplot()+
 ## Map 3
 
 
-While this map utilizes a contrasting color scheme do differentiate between the data shown, the choice of color of the base map pulls focus away from the Enterprise Zones and CTA-L-Stops. Choosing a lighter base map, outlining the Enterprise Zones and lowering the opacity, and shifting the color for both the Enterprise Zones and CTA-L-Stops, would make this map more effective. 
+While this map utilizes a contrasting color scheme to differentiate between the data shown, the choice of color of the base map pulls focus away from the Enterprise Zones and CTA-L-Stops. Choosing a lighter base map, outlining the Enterprise Zones and lowering the opacity, and shifting the color for both the Enterprise Zones and CTA-L-Stops would make this map more effective. 
 
 
 
@@ -127,7 +127,7 @@ While this map utilizes a contrasting color scheme do differentiate between the 
 ggplot() +  
   annotation_map_tile(zoomin = 0, progress = "none", type = "stamenbw") +  
   geom_sf() +  
-  labs(caption = "Map 3 - EZones and LStops in Chicago") +  
+  labs(caption = "Map tile and data by OpenStreetMaps") +  
   geom_sf(data = Ezones, color = NA, alpha = 0.5,  
           aes(fill = "Enterprise Zones")) +  
   geom_sf(data = Lstops, size = 0.4, 
@@ -152,7 +152,7 @@ This map used a neutral Chicago base map to emphasize the distinct Enterprise Zo
 
 ggplot() +  
   annotation_map_tile(zoomin = 0, progress = "none", type = "cartolight")  +  
-  labs(caption = "Map 4 - EZones and LStops in Chicago") +  
+  labs(caption = "Map tile and data by OpenStreetMaps") +  
   geom_sf(data = Ezones, color = "NA", aes(fill = "Enterprise Zones")) + 
   geom_sf(data = Lstops, shape = 18, size = 1, aes(color = "CTA - L stops")) + 
   scale_fill_manual(values = "turquoise", name = "") +  
@@ -176,7 +176,7 @@ This map highlights the relationship between the Enterprise Zones and L stops pr
 ggplot() + 
   annotation_map_tile(zoomin = 0, progress = "none", type = "cartolight")  + 
   geom_sf() + 
-  labs(caption = "Map 5 (Best Map) - EZones and LStops in Chicago")+ 
+  labs(caption = "Map tile and data by OpenStreetMaps")+ 
   geom_sf(data = Ezones, color = "lightcoral",alpha = 0.2, 
                         aes(fill = "Enterprise Zones")) + 
   geom_sf(data = Lstops, 
